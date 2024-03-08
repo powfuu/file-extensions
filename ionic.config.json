@@ -1,0 +1,7 @@
+{
+  "name": "weather-fruit",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
