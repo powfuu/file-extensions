@@ -1,6 +1,9 @@
 {
-  "name": "weather-fruit",
-  "version": "0.0.1",
+  "name": "file-extension",
+  "version": "1.0.0",
+  "config": {
+    "versionCode": 10000
+  },
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
@@ -9,7 +12,14 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "config-trapeze": "VERSION_NAME=$npm_package_version VERSION_CODE=$npm_package_config_versionCode npx trapeze run config/config.yml -y",
+    "build-ios": "rm -rf ios/ android/ && npx cap add ios && npm run config-trapeze && npm run build && npx cap sync ios",
+    "build-android": "rm -rf ios/ android/ && npx cap add android && npm run config-trapeze && npm run build && npx cap sync android",
+    "open-ios": "npx cap open ios",
+    "open-android": "npx cap open android",
+    "ios": "rm -rf android/ ios/ && npx cap add ios && npm run build-ios && npx ionic capacitor run ios --livereload --external",
+    "android": "rm -rf android/ ios/ && npx cap add android && npm run build-android && npx ionic capacitor run android --livereload --external"
   },
   "private": true,
   "dependencies": {
@@ -21,13 +31,20 @@
     "@angular/platform-browser": "^17.0.2",
     "@angular/platform-browser-dynamic": "^17.0.2",
     "@angular/router": "^17.0.2",
-    "@capacitor/app": "5.0.7",
+    "@capacitor/android": "^5.7.2",
+    "@capacitor/app": "5.0.6",
     "@capacitor/core": "5.7.2",
-    "@capacitor/haptics": "5.0.7",
-    "@capacitor/keyboard": "5.0.8",
-    "@capacitor/status-bar": "5.0.7",
-    "@ionic/angular": "^7.5.0",
-    "ionicons": "^7.2.1",
+    "@capacitor/haptics": "5.0.6",
+    "@capacitor/ios": "^5.7.2",
+    "@capacitor/keyboard": "^5.0.7",
+    "@capacitor/preferences": "^5.0.6",
+    "@capacitor/splash-screen": "^5.0.6",
+    "@capacitor/status-bar": "5.0.6",
+    "@ionic/angular": "^7.0.0",
+    "@ngrx/effects": "^17.0.1",
+    "@ngrx/store": "^17.0.1",
+    "@trapezedev/configure": "^7.0.10",
+    "ionicons": "^7.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
@@ -42,9 +59,10 @@
     "@angular/cli": "^17.0.0",
     "@angular/compiler-cli": "^17.0.2",
     "@angular/language-service": "^17.0.2",
-    "@capacitor/cli": "5.7.2",
+    "@capacitor/cli": "5.6.0",
     "@ionic/angular-toolkit": "^9.0.0",
     "@types/jasmine": "~5.1.0",
+    "@types/node": "^20.11.30",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^7.26.0",
@@ -58,6 +76,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ts-node": "^8.3.0",
     "typescript": "~5.2.2"
   },
   "description": "An Ionic project"
